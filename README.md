@@ -1,4 +1,4 @@
-# 行政区划数据获取和存储工具
+uv# 行政区划数据获取和存储工具
 
 从阿里云 DataV GeoAtlas 获取行政区划数据，并存储到 PostGIS 数据库中。
 
@@ -60,7 +60,12 @@ cp .env.example .env
 编辑 `.env` 文件：
 
 ```
-DATABASE_URL=postgresql://postgres:password@localhost:5432/geo_data
+DATABASE_URL=
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=geo_data
+DB_USER=postgres
+DB_PASSWORD=your_password
 START_ADCODE=100000
 MAX_LEVEL=3
 DELAY_SECONDS=0.2
@@ -68,7 +73,19 @@ DELAY_SECONDS=0.2
 
 ### 配置说明
 
-- `DATABASE_URL`: PostgreSQL 数据库连接字符串
+**方式一：使用 DATABASE_URL（完整连接字符串）**
+```
+DATABASE_URL=postgresql://user:password@host:port/database
+```
+
+**方式二：使用单独配置项（推荐，支持特殊字符密码）**
+- `DB_HOST`: 数据库主机地址（默认：localhost）
+- `DB_PORT`: 数据库端口（默认：5432）
+- `DB_NAME`: 数据库名称（默认：geo_data）
+- `DB_USER`: 数据库用户名（默认：postgres）
+- `DB_PASSWORD`: 数据库密码（支持包含特殊字符，如 !@#$%）
+
+**其他配置：**
 - `START_ADCODE`: 起始区域编码（100000 表示全国）
 - `MAX_LEVEL`: 最大下钻层级（0=国家, 1=省, 2=市, 3=区县）
 - `DELAY_SECONDS`: 请求间隔时间（秒），避免请求过于频繁

@@ -9,12 +9,14 @@ def main():
     if not Config.validate():
         return
     
+    database_url = Config.get_database_url()
+    
     print("开始获取行政区划数据...")
-    print(f"数据库连接: {Config.DATABASE_URL}")
+    print(f"数据库连接: {database_url}")
     print(f"起始区域: {Config.START_ADCODE}")
     print(f"最大层级: {Config.MAX_LEVEL}")
     
-    db_manager = DatabaseManager(Config.DATABASE_URL)
+    db_manager = DatabaseManager(database_url)
     fetcher = DataVFetcher()
     processor = DataProcessor(db_manager)
     
